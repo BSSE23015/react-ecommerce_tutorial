@@ -1,20 +1,29 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
-import NavBar from "./components/NavBar";
+import Checkout from "./pages/Checkout";
+import Navbar from "./components/Navbar";
+
+import "./App.css";
+import AuthProvider from "./Context/AuthContext";
+import ProductDetails from "./pages/ProductDetails";
+import CartProvider from "./Context/CartContext";
 
 function App() {
   return (
-    <div className="app">
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/auth" element={<Auth />} />
-      </Routes>
-    </div>
+    <AuthProvider>
+      <CartProvider>
+        <div className="app">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/products/:id" element={<ProductDetails />} />
+          </Routes>
+        </div>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
